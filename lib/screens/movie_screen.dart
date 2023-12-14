@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/screens/movie_winner.dart';
+import 'package:flutter_project/utils/session_manager.dart';
+import 'package:http/http.dart' as http;
 import '../utils/http_movies.dart';
 import '../theme/app_theme.dart';
 import '../models/movie_model.dart';
-import '../utils/movie_card.dart';
-import 'package:flutter_project/utils/session_manager.dart';
-import 'package:http/http.dart' as http;
+import '../utils/movie_card_simple.dart';
 
 class MovieScreen extends StatefulWidget {
   const MovieScreen({super.key});
@@ -31,6 +31,114 @@ class _MovieScreenState extends State<MovieScreen> {
   void initState() {
     super.initState();
     getMovies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(''),
+        backgroundColor: const Color.fromARGB(255, 2, 2, 2),
+      ),
+      body: Container(
+        width: width,
+        height: height,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color.fromARGB(255, 2, 2, 2),
+              Color.fromARGB(255, 19, 19, 19),
+              Color.fromARGB(255, 89, 89, 89),
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Center(
+                child: Text(
+                  'Movie Choices',
+                  style: AppTheme.mySessionTitle,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Expanded(
+                child: FutureBuilder<List<Movie>>(
+                  future: movies,
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Movie>> snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          Movie movie = snapshot.data![index];
+
+                          return Dismissible(
+                            key: Key(movie.id.toString()),
+                            onDismissed: (direction) {
+                              bool vote =
+                                  direction == DismissDirection.startToEnd;
+
+                              sendVote(movie.id, vote);
+
+                              setState(() {
+                                snapshot.data!.removeAt(index);
+                              });
+                            },
+                            background: Stack(
+                              alignment: Alignment.centerLeft,
+                              children: [
+                                Container(),
+                                const Positioned(
+                                  left: 50,
+                                  child:
+                                      Icon(Icons.thumb_up, color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            secondaryBackground: Stack(
+                              alignment: Alignment.centerRight,
+                              children: [
+                                Container(),
+                                const Positioned(
+                                  right: 50,
+                                  child: Icon(Icons.thumb_down,
+                                      color: Colors.white),
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                MovieCardSimple(movie: movie),
+                                const SizedBox(height: 120),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    } else if (snapshot.hasError) {
+                      return const Center(child: FlutterLogo(size: 20));
+                    } else {
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: AppTheme.myBackgroundColor1,
+                      ));
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> sendVote(int movieId, bool vote) async {
@@ -81,67 +189,6 @@ class _MovieScreenState extends State<MovieScreen> {
           ],
         );
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movies Data', style: AppTheme.myTitleStyle),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: FutureBuilder<List<Movie>>(
-          future: movies,
-          builder: (BuildContext context, AsyncSnapshot<List<Movie>> snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data!.length ?? 0,
-                itemBuilder: (BuildContext context, int index) {
-                  Movie movie = snapshot.data![index];
-
-                  return Dismissible(
-                    key: Key(movie.id.toString()),
-                    onDismissed: (direction) {
-                      if (direction == DismissDirection.endToStart) {
-                        print(
-                            "${movie.name} Swipe Right to Left - Action False");
-                      } else if (direction == DismissDirection.startToEnd) {
-                        print(
-                            "${movie.name} Swipe Left to Right - Action True");
-                      }
-
-                      bool vote = direction == DismissDirection.startToEnd;
-                      print('Sending vote: $vote, for movie: ${movie.id}');
-                      sendVote(movie.id, vote);
-
-                      setState(() {
-                        snapshot.data!.removeAt(index);
-                      });
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("${movie.name} removed")),
-                      );
-                    },
-                    background: Container(
-                        color: Colors.green, child: const Icon(Icons.thumb_up)),
-                    secondaryBackground: Container(
-                        color: Colors.red, child: const Icon(Icons.thumb_down)),
-                    child: MovieCard(movie: movie),
-                  );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return const Center(child: FlutterLogo(size: 20));
-            } else {
-              return const Center(
-                  child: CircularProgressIndicator(
-                color: AppTheme.myBackgroundColor1,
-              ));
-            }
-          },
-        ),
-      ),
     );
   }
 }

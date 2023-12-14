@@ -13,31 +13,54 @@ class AppTheme {
     fontFamily: 'Gotham-Narrow-Light',
     fontSize: 24,
     fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 244, 244, 244),
   );
 
   static const TextStyle mySubtitleStyle = TextStyle(
     fontFamily: 'Gotham-Narrow-Light',
     fontSize: 18,
     fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 244, 244, 244),
   );
 
   static const TextStyle myDescriptionStyle = TextStyle(
     fontFamily: 'Gotham-Narrow-Light',
     fontSize: 16,
+    color: Color.fromARGB(255, 244, 244, 244),
+  );
+
+  static const TextStyle mySessionTitle = TextStyle(
+    fontFamily: 'Gotham-Narrow-Ultra',
+    fontSize: 30,
+    // fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 244, 244, 244),
+  );
+
+  static const TextStyle myCardTitle = TextStyle(
+    fontFamily: 'Gotham-Narrow-Light',
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 2, 2, 2),
+  );
+
+  static const TextStyle myCardSubTitle = TextStyle(
+    fontFamily: 'Gotham-Narrow-Light',
+    fontSize: 20,
+    // fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 2, 2, 2),
+  );
+
+  static const TextStyle myCardDescription = TextStyle(
+    fontFamily: 'Gotham-Narrow-Light',
+    fontSize: 16,
+    // fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 2, 2, 2),
   );
 
   static const TextStyle myHeroTextStyle1 = TextStyle(
     fontFamily: 'Gotham-Narrow-Light',
     fontSize: 18,
-    color: Color(0xFFFFEB3B),
-  );
-
-  static const TextStyle myHeroTextStyle3 = TextStyle(
-    fontFamily: 'Times-New-Roman',
-    fontStyle: FontStyle.italic,
-    fontSize: 28,
-    color: Colors.yellow,
-    height: 1.2,
+    color: Color.fromARGB(255, 59, 160, 255),
   );
 
   static const TextStyle myHeroTextStyle2 = TextStyle(
@@ -47,9 +70,17 @@ class AppTheme {
     height: 0.8,
   );
 
+  static const TextStyle myHeroTextStyle3 = TextStyle(
+    fontFamily: 'Times-New-Roman',
+    fontStyle: FontStyle.italic,
+    fontSize: 28,
+    color: Color.fromARGB(255, 59, 160, 255),
+    height: 1.2,
+  );
+
   static final ButtonStyle myFormButtonStyle = ElevatedButton.styleFrom(
     foregroundColor: Colors.white,
-    backgroundColor: colorScheme.secondary,
+    primary: colorScheme.secondary,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(8.0),
     ),

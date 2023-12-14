@@ -5,28 +5,25 @@ import 'package:flutter_project/utils/session_manager.dart';
 Future<Map<String, String>?> startSessionAndNavigate() async {
   try {
     String? deviceId = await DeviceStorage.getDeviceId();
-    var activeSession = null; //await SessionManager.getActiveSession();
-    print('Active Session: $activeSession');
+    // ignore: avoid_init_to_null
+    var activeSession = null;
 
-    if (activeSession == null) {
-      print('No active session found. Starting a new session...');
-      print('Device ID: $deviceId');
-      var sessionResponse = await SessionApi.startSession(deviceId!);
+    // if (activeSession == null) {
+    var sessionResponse = await SessionApi.startSession(deviceId!);
 
-      print('Session Response: $sessionResponse');
-
-      if (sessionResponse != null) {
-        await SessionManager.saveSession(
-            sessionResponse.code, sessionResponse.sessionId);
-        activeSession = {
-          'sessionCode': sessionResponse.code,
-          'sessionId': sessionResponse.sessionId
-        };
-      }
+    if (sessionResponse != null) {
+      await SessionManager.saveSession(
+          sessionResponse.code, sessionResponse.sessionId);
+      activeSession = {
+        'sessionCode': sessionResponse.code,
+        'sessionId': sessionResponse.sessionId
+      };
     }
+    // }
 
     return activeSession;
   } catch (e) {
+    // ignore: avoid_print
     print('Error: $e');
     return null;
   }
@@ -34,27 +31,25 @@ Future<Map<String, String>?> startSessionAndNavigate() async {
 
 Future<Map<String, String>?> joinSessionAndNavigate(String code) async {
   try {
-    // String? sessionCode = "";
     String? deviceId = await DeviceStorage.getDeviceId();
-    var activeSession = null; //await SessionManager.getActiveSession();
-    print('Active Session: $activeSession');
+    // ignore: avoid_init_to_null
+    var activeSession = null;
 
-    if (activeSession == null) {
-      var sessionResponse = await SessionApi.joinSession(deviceId!, code);
+    // if (activeSession == null) {
+    var sessionResponse = await SessionApi.joinSession(deviceId!, code);
 
-      print('Join to Session Response: $sessionResponse');
-
-      if (sessionResponse != null) {
-        await SessionManager.saveSession(code, sessionResponse.sessionId);
-        activeSession = {
-          'sessionCode': code,
-          'sessionId': sessionResponse.sessionId
-        };
-      }
-
-      return activeSession;
+    if (sessionResponse != null) {
+      await SessionManager.saveSession(code, sessionResponse.sessionId);
+      activeSession = {
+        'sessionCode': code,
+        'sessionId': sessionResponse.sessionId
+      };
     }
+
+    return activeSession;
+    // }
   } catch (e) {
+    // ignore: avoid_print
     print('Error: $e');
     return null;
   }

@@ -35,43 +35,10 @@ class MainNavigation extends StatefulWidget {
 }
 
 class _MainNavigationState extends State<MainNavigation> {
-  int selectedIndex = 0;
-
-  void onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: selectedIndex,
-        children: const [
-          HomeScreen(),
-          // HistoryScreen(),
-          // AboutScreen(),
-        ],
-      ),
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: selectedIndex,
-        onDestinationSelected: onItemTapped,
-        destinations: const [
-          NavigationDestination(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.analytics),
-            label: 'Games History',
-          ),
-          NavigationDestination(
-            icon: Icon(Icons.info),
-            label: 'About',
-          ),
-        ],
-      ),
+      body: HomeScreen(),
     );
   }
 }
@@ -85,9 +52,11 @@ Future<void> checkAndSaveDeviceId() async {
         await DeviceStorage.saveDeviceId(deviceId);
       }
     } catch (e) {
+      // ignore: avoid_print
       print('Error getting the device id: $e');
     }
   } else {
+    // ignore: avoid_print
     print('Device ID already saved: $storedDeviceId');
   }
 }
