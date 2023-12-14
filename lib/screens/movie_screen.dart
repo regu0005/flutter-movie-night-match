@@ -172,7 +172,7 @@ class _MovieScreenState extends State<MovieScreen> {
       builder: (BuildContext context) {
         return AlertDialog(
           title: const Text('Movie Match!'),
-          content: const Text('Movie chosed by your friend!'),
+          content: const Text('Movie chosed by your friend'),
           actions: <Widget>[
             TextButton(
               child: const Text('Continue'),

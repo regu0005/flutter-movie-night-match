@@ -43,11 +43,32 @@ class AppTheme {
     color: Color.fromARGB(255, 2, 2, 2),
   );
 
+  static const TextStyle myCardTitleWinner = TextStyle(
+    fontFamily: 'Gotham-Narrow-Light',
+    fontSize: 26,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 255, 255, 255),
+  );
+
   static const TextStyle myCardSubTitle = TextStyle(
     fontFamily: 'Gotham-Narrow-Light',
     fontSize: 20,
     // fontWeight: FontWeight.bold,
     color: Color.fromARGB(255, 2, 2, 2),
+  );
+
+  static const TextStyle myCardSubTitleWinner1 = TextStyle(
+    fontFamily: 'Gotham-Narrow-Light',
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 255, 255, 255),
+  );
+
+  static const TextStyle myCardSubTitleWinner2 = TextStyle(
+    fontFamily: 'Gotham-Narrow-Light',
+    fontSize: 16,
+    // fontWeight: FontWeight.bold,
+    color: Color.fromARGB(255, 255, 255, 255),
   );
 
   static const TextStyle myCardDescription = TextStyle(

@@ -18,7 +18,7 @@ class JoinScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),
-        backgroundColor: Color.fromARGB(255, 2, 2, 2),
+        backgroundColor: const Color.fromARGB(255, 2, 2, 2),
       ),
       body: Container(
         width: width,

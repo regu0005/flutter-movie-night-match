@@ -8,7 +8,6 @@ Future<Map<String, String>?> startSessionAndNavigate() async {
     // ignore: avoid_init_to_null
     var activeSession = null;
 
-    // if (activeSession == null) {
     var sessionResponse = await SessionApi.startSession(deviceId!);
 
     if (sessionResponse != null) {
@@ -19,7 +18,6 @@ Future<Map<String, String>?> startSessionAndNavigate() async {
         'sessionId': sessionResponse.sessionId
       };
     }
-    // }
 
     return activeSession;
   } catch (e) {
@@ -53,5 +51,4 @@ Future<Map<String, String>?> joinSessionAndNavigate(String code) async {
     print('Error: $e');
     return null;
   }
-  return null;
 }
