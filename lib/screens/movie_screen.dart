@@ -21,7 +21,7 @@ class _MovieScreenState extends State<MovieScreen> {
   void getMovies() {
     try {
       movies = HttpHelper.fetch(
-          'https://api.themoviedb.org/3/discover/tv?sort_by=popularity.desc&api_key=8b4d7c866d85932f1939c1f1c0f9b149');
+          'https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=8b4d7c866d85932f1939c1f1c0f9b149');
     } catch (e) {
       print(e);
     }

@@ -82,7 +82,7 @@ class MovieWinnerScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  movie.name,
+                  movie.title,
                   style: AppTheme.myCardTitleWinner,
                   textAlign: TextAlign.center,
                 ),
@@ -128,7 +128,7 @@ class MovieWinnerScreen extends StatelessWidget {
                             style: AppTheme.myCardSubTitleWinner1,
                           ),
                           Text(
-                            movie.firstAirDate,
+                            movie.releaseDate,
                             style: AppTheme.myCardSubTitleWinner2,
                           ),
                         ],

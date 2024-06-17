@@ -24,7 +24,7 @@ class MovieCardSimple extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(movie.name,
+              child: Text(movie.title,
                   style: AppTheme.myCardTitle, textAlign: TextAlign.center),
             ),
             Padding(
